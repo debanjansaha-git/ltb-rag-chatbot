@@ -8,6 +8,7 @@ The Landlord Tenant Board ChatBot is an AI-powered assistant designed to provide
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Features](#features)
+  - [Organisation](#organisation)
   - [Installation](#installation)
   - [Usage](#usage)
   - [Contributing](#contributing)
@@ -16,6 +17,8 @@ The Landlord Tenant Board ChatBot is an AI-powered assistant designed to provide
 ## Overview
 
 The Landlord Tenant Board ChatBot leverages state-of-the-art technologies including OpenAI's text embedding models and FAISS (Facebook AI Similarity Search) for document retrieval. By indexing the corpus of documents and generating embeddings for efficient similarity search, the chatbot provides fast and accurate responses to user queries, covering a wide range of topics related to landlord-tenant disputes, regulations, rights, and responsibilities.
+
+![architecture](./assets/LLM-RAG Application.png)
 
 ## Features
 
@@ -28,6 +31,27 @@ The Landlord Tenant Board ChatBot leverages state-of-the-art technologies includ
 - **Context Expansion**: The chatbot incorporates adjacent text and related content referenced by sub-links to provide comprehensive responses, preserving sequence information and context.
 
 - **Context Generation**: The chatbot generates responses to user queries after processing the sub-context from the FAISS store and passing the query parameters to the corresponding LLM for generating responses.
+
+## Organisation
+
+The repository is organized as follows:
+```
+.
+├── LICENSE
+├── README.md
+├── data
+│   └── corpus.json
+├── docs
+│   ├── Landlord Tenant Board ChatBot using FAISS.docx
+│   └── Landlord Tenant Board ChatBot using FAISS.pdf
+├── index
+│   └── LTBPrimary
+│       ├── index.faiss
+│       └── index.pkl
+├── requirements.txt
+└── src
+    └── faiss_openai_embeddings.py
+```
 
 ## Installation
 
