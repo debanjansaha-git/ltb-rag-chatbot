@@ -18,7 +18,7 @@ The Landlord Tenant Board ChatBot is an AI-powered assistant designed to provide
 
 The Landlord Tenant Board ChatBot leverages state-of-the-art technologies including OpenAI's text embedding models and FAISS (Facebook AI Similarity Search) for document retrieval. By indexing the corpus of documents and generating embeddings for efficient similarity search, the chatbot provides fast and accurate responses to user queries, covering a wide range of topics related to landlord-tenant disputes, regulations, rights, and responsibilities.
 
-![architecture](./assets/LLM-RAG Application.png)
+<img src="assets/LLM-RAG Application.png" width="1024"/>
 
 ## Features
 
