@@ -8,16 +8,15 @@ EMBEDDINGS_MODEL = "text-embedding-ada-002"
 
 
 class DataProcessor:
-    def __init__(
-        self, window_size=3, max_key_idx=100, chunk_size=1000, chunk_overlap=500
-    ):
+    def __init__(self, window_size=3, chunk_size=1000, chunk_overlap=500):
         self.window_size = window_size
-        self.max_key_idx = max_key_idx
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.text_splitter = CharacterTextSplitter(
             chunk_size=self.chunk_size, chunk_overlap=self.chunk_overlap
         )
+        self.visited = set()  # To keep track of visited links
+        self.documents = []
 
     def get_embeddings(self):
         return OpenAIEmbeddings()
@@ -30,7 +29,7 @@ class DataProcessor:
 
     def process_context(self, data):
         # Extract text and context from data
-        print("Key: %s" % data["__ID__"])
+        # print("Key: %s" % data["__ID__"])
         text_str, context_str = "", ""
         if "__Rules__" in data:
             for i in range(len(data["__Rules__"])):
@@ -47,43 +46,45 @@ class DataProcessor:
 
         return text_str, context_str
 
-    def split_documents(self, data):
-        # Split documents for indexing
-        documents = []
-        (*data_keys,) = data.keys()
-        for key in data_keys[0 : self.max_key_idx]:
-            data = data[key]
-            content_type = data["__Type__"]
-            id = data["__ID__"]
-            url = data["__URL__"]
-            sub_links = data["__SUB_Link__"]
-            if content_type == "link":
-                window_text, window_context = self.process_context(data)
-                # Include related content referenced by sub-links
-                for sub_link in sub_links:
-                    if sub_link in data:
-                        if data[sub_link]["__Type__"] == "link":
-                            sublink_text, sublink_content = self.process_context(
-                                data[sub_link]
-                            )
-                        window_text += "\n" + sublink_text
-                        window_context += "\n" + sublink_content
-                        documents.append(
-                            Document(
-                                page_content=window_text,
-                                metadata={"Context": window_context},
-                            )
-                        )
+    def split_documents(self, data, sub_data, depth=0):
+        if depth < 4:
+            # Split documents for indexing
+            content_type = sub_data["__Type__"]
+            id = sub_data["__ID__"]
+            url = sub_data["__URL__"]
+            sub_links = sub_data["__SUB_Link__"]
 
-            elif content_type == "pdf":
-                for item in data["data"]:
-                    forms = data["form"]
-                    documents.append(
-                        Document(page_content=item, metadata={"Context": forms})
-                    )
-                context = data["form"]
+            if url in self.visited:
+                logger.warning(f"Skipping - Already Indexed: {url}.")
+
             else:
-                print("Type of Document : ", content_type)
+                if content_type == "link":
+                    logger.info(f"Processing Key={id}")
+                    window_text, window_context = self.process_context(sub_data)
+                    self.documents.extend(
+                        [{"text": window_text, "context": window_context}]
+                    )
+                    self.visited.add(url)
+                    # Include related content referenced by sub-links
+                    for sub_link in sub_links:
+                        if sub_link in data:
+                            subb_data = data[sub_link]
+                            sub_docs = self.split_documents(data, subb_data, depth + 1)
+                            self.documents.extend(sub_docs)
+                        else:
+                            logger.warning(f"Invalid sub-link type for {sub_link}")
 
-        docs = self.text_splitter.split_documents(documents)
-        return docs
+                elif content_type == "pdf":
+                    for item in sub_data["data"]:
+                        forms = sub_data["form"]
+                        self.documents.append(
+                            Document(page_content=item, metadata={"Context": forms})
+                        )
+                else:
+                    logger.warning(f"Invalid content type: {content_type}")
+
+        if depth == 0:
+            self.visited.clear()  # Reset visited links at the root level
+
+        # docs = self.text_splitter.split_documents(self.documents)
+        return self.documents

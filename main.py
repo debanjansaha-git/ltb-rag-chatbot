@@ -7,11 +7,15 @@ from ltb.indexing import Indexer
 
 class LTB:
     def __init__(self) -> None:
-        pass
+        self.max_key_idx = 3
 
     def print_results(self, results):
         for doc, score in results:
             logger.info(f"Content: {doc.page_content}, Score: {score}\n\n")
+
+    def write_file(self, documents):
+        with open(f"outputs/data.txt", "w") as f:
+            f.write(documents)
 
     def main(self):
         env_setup = Environment()
@@ -19,17 +23,19 @@ class LTB:
 
         data_processor = DataProcessor()
         data = data_processor.process_data("data/corpus.json")
-        documents = data_processor.split_documents(data)
-
+        (*data_keys,) = data.keys()
+        for key in data_keys[0 : self.max_key_idx]:
+            documents = data_processor.split_documents(data, data[key])
+        self.write_file(documents, key)
         embeddings = data_processor.get_embeddings()
 
-        indexer = Indexer()
-        db = indexer.index_documents(documents, embeddings)
-        query = "How to resolve disputes between landloards and tenants"
+        # indexer = Indexer()
+        # db = indexer.index_documents(documents, embeddings)
+        # query = "How to resolve disputes between landloards and tenants"
 
-        search_metadata = indexer.similarity_search(query, db)
+        # search_metadata = indexer.similarity_search(query, db)
 
-        self.print_results(search_metadata)
+        # self.print_results(search_metadata)
 
 
 if __name__ == "__main__":
