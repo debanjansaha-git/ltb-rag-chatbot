@@ -18,3 +18,4 @@ fastapi==0.110.0
 transformers==4.38.2
 huggingface-hub==0.21.4
 tokenizers==0.15.2
+cohere==4.56

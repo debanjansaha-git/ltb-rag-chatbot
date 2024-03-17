@@ -7,7 +7,7 @@ from ltb import logger
 class Environment:
     def __init__(self):
         if not load_dotenv(find_dotenv()):
-            logger.error("OpenAI API key or .env file is missing!")
+            logger.error("API keys or .env file is missing!")
         else:
             load_dotenv(find_dotenv())
             self.openai_api_key = os.getenv("OPENAI_API_KEY")

@@ -5,11 +5,12 @@ from langchain.retrievers import EnsembleRetriever
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import CohereRerank
 from ltb import logger
-from indexer import Indexer
+from ltb.indexer import Indexer
 
 
-class Retriever(Indexer):
-    def __init__(self, top_k=5, top_n=5, bm25_weight=0.5, faiss_weight=0.5):
+class Retriever:
+    def __init__(self, db, top_k=5, top_n=5, bm25_weight=0.5, faiss_weight=0.5):
+        self.db = db
         self.top_k = top_k
         self.top_n = top_n
         self.bm25_weight = bm25_weight
