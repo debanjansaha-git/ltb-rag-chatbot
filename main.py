@@ -1,7 +1,7 @@
 import os
 from ltb import logger
 from ltb.environment import Environment
-from ltb.data_processing import DataProcessor
+from ltb.data_preprocessing import DataProcessor
 from ltb.indexing import Indexer
 
 
@@ -9,25 +9,25 @@ class LTB:
     def __init__(self) -> None:
         self.max_key_idx = 3
 
-    def print_results(self, results):
-        for doc, score in results:
-            logger.info(f"Content: {doc.page_content}, Score: {score}\n\n")
+    # def print_results(self, results):
+    #     for doc, score in results:
+    #         logger.info(f"Content: {doc.page_content}, Score: {score}\n\n")
 
-    def write_file(self, documents):
-        with open(f"outputs/data.txt", "w") as f:
-            f.write(documents)
+    # def write_file(self, documents):
+    #     with open(f"outputs/data.txt", "w") as f:
+    #         f.write(documents)
 
     def main(self):
         env_setup = Environment()
         openai_client = env_setup.setup_environment()
 
         data_processor = DataProcessor()
-        data = data_processor.process_data("data/corpus.json")
-        (*data_keys,) = data.keys()
-        for key in data_keys[0 : self.max_key_idx]:
-            documents = data_processor.split_documents(data, data[key])
-        self.write_file(documents, key)
-        embeddings = data_processor.get_embeddings()
+        data, data_keys = data_processor.read_data("data/corpus.json")
+        # (*data_keys,) = data.keys()
+        for key in data_keys:
+            print("Key: ", key)
+            data_processor.split_documents(data[key])
+        data_processor.write_json("data/preprocessed_data.json")
 
         # indexer = Indexer()
         # db = indexer.index_documents(documents, embeddings)
