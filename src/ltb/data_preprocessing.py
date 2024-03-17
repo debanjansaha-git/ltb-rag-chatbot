@@ -28,7 +28,9 @@ class DataProcessor:
     def write_json(self, output_file):
         # Write json data
         with open(output_file, "w") as file:
-            json.dump(self.documents, file, indent=2)
+            for nested_dict in self.documents:
+                json.dump(nested_dict, file)
+                file.write("\n")
         logger.info("Pre-processed data written to disk!!!")
 
     def clean_text(self, text):
@@ -83,7 +85,7 @@ class DataProcessor:
             if content_type == "link":
                 text, context = self.process_context(data)
                 print(f"Len Text: {len(text)}, Len Context: {len(context)}")
-                self.extend_data(text, context)
+                # self.extend_data(text, context)
                 self.visited.add(url)
                 if len(text) > 0:
                     if len(text) < 500:

@@ -2,7 +2,7 @@ import os
 from ltb import logger
 from ltb.environment import Environment
 from ltb.data_preprocessing import DataProcessor
-from ltb.indexing import Indexer
+from ltb.indexer import Indexer
 
 
 class LTB:
