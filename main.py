@@ -21,7 +21,7 @@ class LTB:
     #     with open(f"outputs/data.txt", "w") as f:
     #         f.write(documents)
 
-    def main(self, query):
+    def main(self, query, model_params):
         ## Register environment vars
         env_setup = Environment()
         openai_client = env_setup.setup_environment()
@@ -43,8 +43,8 @@ class LTB:
         db = indexer.index_documents(short_data, embeds, reindex=False)
 
         ## Check results
-        search_metadata = indexer.similarity_search(query)
-        self.print_results(search_metadata)
+        # search_metadata = indexer.similarity_search(query)
+        # self.print_results(search_metadata)
 
         ## Call Retriever/s
         ret = Retriever(db)
@@ -53,18 +53,18 @@ class LTB:
         ret_esb = ret.ensemble_retriever()
         ret_cor = ret.cohere_reranker()
         resp = ret_cor.get_relevant_documents(query)
-        print(resp)
         ## Checked working uptil here...
 
         ## Call Generate
-        # genai = Generator(ret_cor)
-        # genai.initiate_llm({"temperature": 0, "top_p": 1, "max_new_tokens": 1000})
-        # genai.rag_chain()
-        # genai.query_rag(query)
+        genai = Generator(ret_cor)
+        genai.initiate_llm(**model_params)
+        response = genai.rag_chain(query)
+        print(resp)
 
 
 if __name__ == "__main__":
     # os.system("python setup.py install")
     obj = LTB()
     query = "How to resolve disputes between landloards and tenants"
-    obj.main(query)
+    model_params = {"temperature": 0.1, "top_p": 1, "max_new_tokens": 300}
+    obj.main(query, model_params)

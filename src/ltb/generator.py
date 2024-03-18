@@ -13,7 +13,7 @@ with open("prompts/rag_prompt_1.txt", "r") as file:
 class Generator:
     def __init__(self, reranker) -> None:
         replicate_key = os.getenv("REPLICATE_API_KEY")
-        self.model = f"meta-llama/Llama-2-70b-chat-hf:{replicate_key}"
+        self.model = f"meta/llama-2-70b-chat:2d19859030ff705a87c746f7e96eea03aefb71f166725aee39692f1476566d48"
         self.rag_prompt = ChatPromptTemplate.from_template(RAG_PROMPT_TEMPLATE)
         self.str_output_parser = StrOutputParser()
         self.reranker = reranker
@@ -33,11 +33,10 @@ class Generator:
             model_kwargs=kwargs,
         )
 
-    def rag_chain(self):
+    def rag_chain(self, query):
         # chain components to form final elevated RAG system using LangChain Expression Language (LCEL)
         self.elevated_rag_chain = (
             self.entry_point_and_elevated_retriever | self.rag_prompt | self.llm
         )
-
-    def query_rag(self, query):
-        self.elevated_rag_chain.invoke(query)
+        response = self.elevated_rag_chain.invoke(query)
+        return response
