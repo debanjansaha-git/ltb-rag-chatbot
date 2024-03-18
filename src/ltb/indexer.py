@@ -32,7 +32,7 @@ class Indexer:
         if tokenizer == "openai_ada":
             embeds_model = "text-embedding-ada-002"
             index_dim = 1536
-            embeddings = OpenAIEmbeddings(model=embeds_model, dimensions=index_dim)
+            embeddings = OpenAIEmbeddings(model=embeds_model)
         elif tokenizer == "cohere":
             embeds_model = "embed-english-light-v3.0"
             embeddings = CohereEmbeddings(model=embeds_model)

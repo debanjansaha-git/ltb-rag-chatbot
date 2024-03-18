@@ -1,9 +1,4 @@
-Use the following context to provide a detailed answer the user's question.
-Do not use an introduction similar to "Based on the provided documents, ...", just answer the question.
-If you don't know the answer, please respond with "I don't know".
-
-Context:
-{context}
-
-User's question:
-{question}
+<s>[INST] <<SYS>>
+Use the following context to answer the user's question. If you don't know the answer, just say that you don't know, don't try to make up an answer.
+<</SYS>>
+<s>[INST] Context: {context} Question: {question} Only return the helpful answer below and nothing else. Helpful answer:[/INST]

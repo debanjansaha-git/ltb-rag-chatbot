@@ -10,8 +10,9 @@ class Environment:
             logger.error("API keys or .env file is missing!")
         else:
             load_dotenv(find_dotenv())
+            os.environ["OPENAI_API_KEY"] = "MY_OPENAI_KEY"
             self.openai_api_key = os.getenv("OPENAI_API_KEY")
-            logger.info("OpenAI key registered")
+            logger.info(f"OpenAI key registered: {self.openai_api_key}")
 
     def setup_environment(self):
         return OpenAI(api_key=self.openai_api_key)

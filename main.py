@@ -21,7 +21,7 @@ class LTB:
     #     with open(f"outputs/data.txt", "w") as f:
     #         f.write(documents)
 
-    def main(self, query, model_params):
+    def main(self, query):
         ## Register environment vars
         env_setup = Environment()
         openai_client = env_setup.setup_environment()
@@ -39,7 +39,7 @@ class LTB:
         indexer = Indexer(self.top_k)
         jsonl = indexer.load_jsonl("data/preprocessed_data.jsonl")
         short_data = jsonl[4:6]
-        embeds = indexer.get_embeddings(tokenizer="cohere")
+        embeds = indexer.get_embeddings(tokenizer="openai_ada")
         db = indexer.index_documents(short_data, embeds, reindex=False)
 
         ## Check results
@@ -53,18 +53,20 @@ class LTB:
         ret_esb = ret.ensemble_retriever()
         ret_cor = ret.cohere_reranker()
         resp = ret_cor.get_relevant_documents(query)
+        resp_text = "\n".join(doc.page_content for doc in resp)
+        print(resp_text)
         ## Checked working uptil here...
 
         ## Call Generate
         genai = Generator(ret_cor)
-        genai.initiate_llm(**model_params)
+        genai.initiate_llm(model="gpt3.5")
         response = genai.rag_chain(query)
-        print(resp)
+        print(response)
 
 
 if __name__ == "__main__":
     # os.system("python setup.py install")
     obj = LTB()
     query = "How to resolve disputes between landloards and tenants"
-    model_params = {"temperature": 0.1, "top_p": 1, "max_new_tokens": 300}
-    obj.main(query, model_params)
+    model_params = {"temperature": 0, "max_tokens": 300}
+    obj.main(query)
