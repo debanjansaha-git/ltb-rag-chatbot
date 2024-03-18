@@ -5,7 +5,6 @@ from langchain.retrievers import EnsembleRetriever
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import CohereRerank
 from ltb import logger
-from ltb.indexer import Indexer
 
 
 class Retriever:
@@ -18,7 +17,7 @@ class Retriever:
 
     def bm25_retriever(self, documents):
         logger.info("Using BM25 Retriever")
-        self.bm25_r = BM25Retriever.from_documents(self.documents)
+        self.bm25_r = BM25Retriever.from_documents(documents)
         self.bm25_r.k = self.top_k
         return self.bm25_r
 
@@ -42,4 +41,4 @@ class Retriever:
             base_retriever=self.ensemble_r,
             base_compressor=self.co_rerank,
         )
-        return self.co_rerank
+        return self.rerank_retriever
