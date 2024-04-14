@@ -5,7 +5,8 @@ __pycache__/
 *$py.class
 .DS_Store
 *.DS_Store
-
+embedding_model/
+*embeddings.npy
 # C extensions
 *.so
 

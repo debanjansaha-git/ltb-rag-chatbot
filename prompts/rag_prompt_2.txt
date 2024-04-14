@@ -1,7 +1,0 @@
-Use the following context to provide a detailed answer the user's question.
-Do not use an introduction similar to "Based on the provided documents, ...", just answer the question.
-If you don't know the answer, please respond with "I don't know".
-Context:
-{context}
-User's question:
-{question}

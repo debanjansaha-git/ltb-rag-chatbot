@@ -1,117 +1,57 @@
-# Landlord Tenant Board ChatBot
-
-The Landlord Tenant Board ChatBot is an AI-powered assistant designed to provide information and assistance to both landlords and tenants regarding housing regulations in Ontario, Canada. The chatbot utilizes advanced natural language processing techniques to understand user queries and retrieve relevant information from a large corpus of documents extracted from the Ontario Tribunals Landlord Tenant Board website.
-
-## Table of Contents
-
-- [Landlord Tenant Board ChatBot](#landlord-tenant-board-chatbot)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Features](#features)
-  - [Organisation](#organisation)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
-  - [License](#license)
+# Legal Aid Chatbot for Landlord and Tenant Board Ontario
 
 ## Overview
-
-The Landlord Tenant Board ChatBot leverages state-of-the-art technologies including OpenAI's text embedding models and FAISS (Facebook AI Similarity Search) for document retrieval. By indexing the corpus of documents and generating embeddings for efficient similarity search, the chatbot provides fast and accurate responses to user queries, covering a wide range of topics related to landlord-tenant disputes, regulations, rights, and responsibilities.
-
-<img src="assets/LLM-RAG_Application.png" width="1024"/>
+The Legal Aid Chatbot is designed to provide instant legal assistance for landlord and tenant disputes in Ontario. It leverages advanced AI, including NLP and machine learning techniques, to understand user inquiries and provide accurate, relevant legal advice. This project aims to enhance the accessibility and efficiency of legal services through Retrieval Augmented Generation (RAG) technology.
 
 ## Features
-
-- **Document Indexing**: The chatbot indexes a large corpus of documents extracted from the Ontario Tribunals Landlord Tenant Board website, including rules, regulations, obligations, and other relevant information.
-
-- **Natural Language Understanding**: Using OpenAI's text embedding models, the chatbot comprehends user queries and identifies relevant documents for retrieval.
-
-- **Document Retrieval**: Leveraging FAISS for efficient similarity search, the chatbot retrieves relevant documents based on user queries, ensuring fast and accurate responses.
-
-- **Context Expansion**: The chatbot incorporates adjacent text and related content referenced by sub-links to provide comprehensive responses, preserving sequence information and context.
-
-- **Context Generation**: The chatbot generates responses to user queries after processing the sub-context from the FAISS store and passing the query parameters to the corresponding LLM for generating responses.
-
-## Organisation
-
-The repository is organized as follows:
-```
-.
-├── LICENSE
-├── README.md
-├── data
-│   └── corpus.json
-├── docs
-│   ├── Landlord Tenant Board ChatBot using FAISS.docx
-│   └── Landlord Tenant Board ChatBot using FAISS.pdf
-├── index
-│   └── LTBPrimary
-│       ├── index.faiss
-│       └── index.pkl
-├── requirements.txt
-└── src
-    └── faiss_openai_embeddings.py
-```
+- **Natural Language Understanding**: Parses and understands complex legal language from user input.
+- **Retrieval-Augmented Generation (RAG)**: Employs RAG techniques to fetch relevant information and generate responses based on a rich database of legal documents.
+- **User-friendly Interface**: Easy-to-use chat interface that allows users to input their legal questions and receive advice instantly.
 
 ## Installation
 
-To install and run the Landlord Tenant Board ChatBot, follow these steps:
+To set up the project on your local machine, follow these steps:
 
-1. Clone the repository to your local machine:
+### Prerequisites
+- Python 3.8 or higher
+- pip (Python package installer)
 
-```bash
-git clone https://github.com/debanjansaha-git/ltb-rag-chatbot.git
-```
-
-2. Navigate to the project directory:
-
-```bash
-cd ltb-rag-chatbot
-```
-
-3. Install the required dependencies:
+### Libraries Installation
+Install all required Python libraries using pip:
 
 ```bash
 pip install -r requirements.txt
 ```
-
-4. Set up the necessary environment variables, including your OpenAI API key, FAISS index name, and other configuration parameters.
-
-5. Run the chatbot:
-
-```bash
-python main.py
-```
+This command will install all necessary packages, including transformers, faiss-gpu, nltk, and others as specified in the requirements.txt file of the project.
 
 ## Usage
+To start the chatbot, run the following command in the terminal:
 
-Once the chatbot is up and running, you can interact with it by entering your queries regarding landlord-tenant disputes, regulations, rights, and responsibilities. The chatbot will provide responses based on the indexed documents and the relevance of the information to your query.
+```
+python chatbot.py
+```
+
+This will activate the chatbot server, and you can interact with it by sending requests through the provided interface or a web-based client.
+
+## Documentation
+For more detailed information about the project's architecture, technologies used, and methodology, please refer to the docs folder.
 
 ## Contributing
+Contributions to the project are welcome! To contribute, please follow these steps:
 
-Contributions to the Landlord Tenant Board ChatBot project are welcome! If you'd like to contribute, please follow these steps:
-
-1. Fork the repository on GitHub.
-
-2. Create a new branch with a descriptive name for your feature or fix:
-
-```bash
-git checkout -b feature/new-feature
-```
-
-3. Make your changes and commit them with clear and concise commit messages.
-
-4. Push your changes to your fork:
-
-```bash
-git push origin feature/new-feature
-```
-
-5. Create a pull request against the main branch of the original repository.
-
-6. Your pull request will be reviewed, and once approved, it will be merged into the main branch.
+- Fork the repository.
+- Create a new branch (git checkout -b feature-branch).
+- Make your changes and commit them (git commit -am 'Add some feature').
+- Push to the branch (git push origin feature-branch).
+- Create a new Pull Request.
 
 ## License
+This project is licensed under the MIT License - see the LICENSE.md file for details.
 
-This project is licensed under the [MIT License](LICENSE).
+## Authors
+- [Debanjan Saha](https://github.com/debanjansaha-git) - Northeastern University
+- [Dr. Uzair Ahmad](https://github.com/DrUzair) - PI, Khoury College of Computer Science, Northeastern University
 
+## Acknowledgments
+Thanks to the contributors who have invested their time in improving this project.
+Special thanks to Atharva Pandkar & Tarun Reddy for assisting in data collection and providing the necessary legal databases and resources.
