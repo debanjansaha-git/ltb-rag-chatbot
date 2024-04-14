@@ -3,6 +3,20 @@ from utils import save_json
 
 
 class DataTransformer:
+    """
+    A class for aggregating context data based on specific rules and types.
+
+    Methods:
+    - aggregate_context(data, outfilepath=None): Aggregates context data based on rules and types.
+
+    Args:
+    - data (dict): The input data to aggregate.
+    - outfilepath (str, optional): The file path to save the aggregated data.
+
+    Returns:
+    - dict: The aggregated context data.
+    """
+
     def __init__(self, cleaner):
         self.cleaner = cleaner
 
@@ -18,8 +32,7 @@ class DataTransformer:
                 text = rule.get("text").strip()
                 if key == "0050000107510004":
                     pattern = r"^(.*?):\s*(.*)$"
-                    match = re.search(pattern, text.strip(), re.DOTALL)
-                    if match:
+                    if match := re.search(pattern, text.strip(), re.DOTALL):
                         context = match.group(1).strip()
                         text = match.group(2).strip()
 
@@ -41,7 +54,7 @@ class DataTransformer:
                     cleaned_text = self.cleaner.clean_text(text)
 
                     if context in aggregated[key]:
-                        aggregated[key][context] += " " + cleaned_text
+                        aggregated[key][context] += f" {cleaned_text}"
                     else:
                         aggregated[key][context] = cleaned_text
 

@@ -12,6 +12,19 @@ from ragas.metrics import (
 
 
 class Evaluator:
+    """
+    A class for evaluating RAG-based models using various metrics and generating evaluation plots.
+
+    Methods:
+    - evaluate_ragas(dataset): Evaluates the RAG-based model on the dataset using specified metrics.
+    - plot_evaluation(result, filepath): Plots the evaluation results as a heatmap and saves it to a file.
+
+    Args:
+    - dataset: The dataset to evaluate the model on.
+    - result: The evaluation result to plot.
+    - filepath (str): The file path to save the evaluation plot.
+    """
+
     def __init__(self) -> None:
         pass
 
