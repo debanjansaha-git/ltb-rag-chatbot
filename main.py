@@ -60,7 +60,7 @@ dataset = genai.process(reranker, llm, queries, ground_truth)
 
 eval = Evaluator()
 eval_results = eval.evaluate_ragas(dataset=dataset)
-eval.plot_evaluation(eval_results, filepath="plots/rag_evaluation.png")
+eval.plot_evaluation(eval_results, llm_name, filepath="plots/rag_evaluation.png")
 
 # result = qa_chain({"query": query_text})
 # answer = result["result"]

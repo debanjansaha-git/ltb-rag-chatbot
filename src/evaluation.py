@@ -43,7 +43,7 @@ class Evaluator:
         result.to_pandas()
         return result
 
-    def plot_evaluation(self, result, filepath):
+    def plot_evaluation(self, result, llm_name, filepath):
         df = result.to_pandas()
         heatmap_data = df[
             [
@@ -58,5 +58,6 @@ class Evaluator:
         plt.figure(figsize=(10, 8))
         sns.heatmap(heatmap_data, annot=True, fmt=".2f", linewidths=0.5, cmap=cmap)
         plt.yticks(ticks=range(len(df["question"])), labels=df["question"], rotation=0)
+        plt.title(f"Evaluation of {llm_name}")
         plt.savefig(filepath)
         plt.show()
