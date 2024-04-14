@@ -14,6 +14,16 @@ def load_json(path):
 
 
 def encode_context_columns(context_aggregated_text):
+    """
+    Encodes context columns into one-hot vectors based on aggregated text data.
+
+    Args:
+    - context_aggregated_text (dict): Aggregated text data containing contexts and corresponding text.
+
+    Returns:
+    - tuple: A tuple containing the encoded DataFrame and a hashmap mapping hash values to original context strings.
+    """
+
     # @title Hashmap context to one hot vectors
     rows = []
     context_columns = set()

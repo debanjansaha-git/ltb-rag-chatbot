@@ -12,6 +12,20 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 
 class EmbeddingModel:
+    """
+    A class for generating embeddings using different embedding models.
+
+    Methods:
+    - generate_embeddings(texts, stage="train"): Generates embeddings for the input texts using the selected model.
+
+    Args:
+    - texts (list): A list of texts to generate embeddings for.
+    - stage (str, optional): The stage of embedding generation, defaults to "train".
+
+    Returns:
+    - list: A list of embeddings generated for the input texts.
+    """
+
     def __init__(self, embedding_model_name: str):
         if embedding_model_name == "openai":
             self.embeddings = OpenAIEmbeddings()

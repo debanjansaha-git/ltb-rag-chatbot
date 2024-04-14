@@ -9,6 +9,19 @@ from langchain_cohere import CohereRerank
 
 
 class DocumentRetriever:
+    """
+    A class for document retrieval using embeddings, ensemble methods, and reranking strategies.
+
+    Methods:
+    - add_embeddings(text_embedding_pairs): Adds text embeddings to the retriever.
+    - retriever(): Returns the retriever based on the added embeddings and top k value.
+    - ensemble(): Creates an ensemble retriever based on the faiss retriever.
+    - reranker(): Sets up a reranker using an ensemble retriever and a reranking strategy.
+    - search(query_text): Searches for relevant documents based on a query text.
+    - reranked_texts(query_text): Retrieves reranked texts based on a query text.
+    - save_index(): Saves the Faiss index locally.
+    """
+
     def __init__(self, embeds_model, top_k=3):
         self.embeds_model = embeds_model
         self.top_k = top_k

@@ -5,6 +5,19 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 
 class LLM:
+    """
+    A class for loading and using different Language Models (LLMs) for generating text responses.
+
+    Methods:
+    - load_llm(): Loads the specified Language Model based on the provided name.
+
+    Args:
+    - llm_name (str): The name of the Language Model to load.
+
+    Returns:
+    - ChatModel: The loaded Language Model for generating text responses.
+    """
+
     def __init__(self, llm_name: str) -> None:
         self.llm_name = llm_name
 

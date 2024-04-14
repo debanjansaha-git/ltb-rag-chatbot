@@ -12,6 +12,25 @@ from datasets import Dataset
 
 
 class Generator:
+    """
+    A class for generating answers to questions using a retrieval-based question answering system.
+
+    Methods:
+    - generate(llm, reranker): Generates answers using a retrieval-based QA system.
+    - rag_chain(retriever, llm): Defines the RAG-based processing chain for question answering.
+    - process(retriever, llm, queries, ground_truth): Processes a list of queries to generate answers and relevant contexts.
+
+    Args:
+    - llm: The language model for question answering.
+    - reranker: The retriever for ranking relevant documents.
+    - retriever: The retriever for retrieving relevant documents.
+    - queries (list): A list of queries to generate answers for.
+    - ground_truth: The ground truth answers for evaluation.
+
+    Returns:
+    - Dataset: A dataset containing questions, answers, contexts, and ground truth for evaluation.
+    """
+
     def __init__(self) -> None:
 
         self.prompt_template = """
