@@ -1,12 +1,19 @@
 # Legal Aid Chatbot for Landlord and Tenant Board Ontario
 
 ## Overview
-The Legal Aid Chatbot is designed to provide instant legal assistance for landlord and tenant disputes in Ontario. It leverages advanced AI, including NLP and machine learning techniques, to understand user inquiries and provide accurate, relevant legal advice. This project aims to enhance the accessibility and efficiency of legal services through Retrieval Augmented Generation (RAG) technology.
+The Legal Aid Chatbot is an AI-driven platform designed to provide immediate legal assistance tailored to the Landlord and Tenant Board of Ontario. Utilizing a sophisticated blend of Natural Language Processing (NLP), Machine Learning (ML), and Retrieval-Augmented Generation (RAG) technologies, the chatbot delivers precise, accurate legal advice in real-time. The project's aim is to democratize access to legal information, enhancing the public's ability to address landlord-tenant disputes effectively.
+
 
 ## Features
-- **Natural Language Understanding**: Parses and understands complex legal language from user input.
-- **Retrieval-Augmented Generation (RAG)**: Employs RAG techniques to fetch relevant information and generate responses based on a rich database of legal documents.
-- **User-friendly Interface**: Easy-to-use chat interface that allows users to input their legal questions and receive advice instantly.
+- **Advanced Natural Language Understanding**: Interprets and processes complex legal language to grasp user inquiries fully.
+- **Retrieval-Augmented Generation (RAG)**: Leverages RAG to source relevant legal information from a comprehensive vector database, ensuring responses are both accurate and contextually relevant.
+- **FAISS Vector Database**: Employs Facebook AI Similarity Search (FAISS) for efficient and scalable retrieval of document embeddings, significantly enhancing the chatbot's performance.
+- **Reranking Mechanism**: Integrates advanced reranking algorithms to refine document selection, prioritizing the most pertinent information for response generation.
+
+
+## Project Presentation
+Watch a project presentation video of the Legal Aid Chatbot: 
+[![Watch the video](https://img.youtube.com/vi/Vavf0isOISY/maxresdefault.jpg)](https://youtu.be/Vavf0isOISY?si=h31R_-lJB3JI8MNB).
 
 ## Installation
 
@@ -25,13 +32,13 @@ pip install -r requirements.txt
 This command will install all necessary packages, including transformers, faiss-gpu, nltk, and others as specified in the requirements.txt file of the project.
 
 ## Usage
-To start the chatbot, run the following command in the terminal:
+To execute the module, run the following command in the terminal:
 
 ```
-python chatbot.py
+python main.py
 ```
 
-This will activate the chatbot server, and you can interact with it by sending requests through the provided interface or a web-based client.
+This will trigger the entire pipeline as a batch invocation, and you can also interact with it by sending requests as well.
 
 ## Documentation
 For more detailed information about the project's architecture, technologies used, and methodology, please refer to the docs folder.
@@ -46,7 +53,7 @@ Contributions to the project are welcome! To contribute, please follow these ste
 - Create a new Pull Request.
 
 ## License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Authors
 - [Debanjan Saha](https://github.com/debanjansaha-git) - Northeastern University
